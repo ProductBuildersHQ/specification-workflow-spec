@@ -1,5 +1,30 @@
 # Specification Workflow Spec
 
+[![Go CI][go-ci-svg]][go-ci-url]
+[![Go Lint][go-lint-svg]][go-lint-url]
+[![Go SAST][go-sast-svg]][go-sast-url]
+[![Docs][docs-godoc-svg]][docs-godoc-url]
+[![Docs][docs-mkdoc-svg]][docs-mkdoc-url]
+[![Visualization][viz-svg]][viz-url]
+[![License][license-svg]][license-url]
+
+ [go-ci-svg]: https://github.com/ProductBuildersHQ/specification-workflow-spec/actions/workflows/go-ci.yaml/badge.svg?branch=main
+ [go-ci-url]: https://github.com/ProductBuildersHQ/specification-workflow-spec/actions/workflows/go-ci.yaml
+ [go-lint-svg]: https://github.com/ProductBuildersHQ/specification-workflow-spec/actions/workflows/go-lint.yaml/badge.svg?branch=main
+ [go-lint-url]: https://github.com/ProductBuildersHQ/specification-workflow-spec/actions/workflows/go-lint.yaml
+ [go-sast-svg]: https://github.com/ProductBuildersHQ/specification-workflow-spec/actions/workflows/go-sast-codeql.yaml/badge.svg?branch=main
+ [go-sast-url]: https://github.com/ProductBuildersHQ/specification-workflow-spec/actions/workflows/go-sast-codeql.yaml
+ [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/ProductBuildersHQ/specification-workflow-spec
+ [docs-godoc-url]: https://pkg.go.dev/github.com/ProductBuildersHQ/specification-workflow-spec
+ [docs-mkdoc-svg]: https://img.shields.io/badge/Go-dev%20guide-blue.svg
+ [docs-mkdoc-url]: https://productbuildershq.com/specification-workflow-spec
+ [viz-svg]: https://img.shields.io/badge/Go-visualizaton-blue.svg
+ [viz-url]: https://mango-dune-07a8b7110.1.azurestaticapps.net/?repo=ProductBuildersHQ%2Fspecification-workflow-spec
+ [loc-svg]: https://tokei.rs/b1/github/ProductBuildersHQ/specification-workflow-spec
+ [repo-url]: https://github.com/ProductBuildersHQ/specification-workflow-spec
+ [license-svg]: https://img.shields.io/badge/license-MIT-blue.svg
+ [license-url]: https://github.com/ProductBuildersHQ/specification-workflow-spec/blob/main/LICENSE
+
 A formal specification for defining product specification workflows.
 
 ## Overview
@@ -16,15 +41,15 @@ A formal specification for defining product specification workflows.
 ## Architecture
 
 ```
-┌────────────────────────────────────────────────────────────────────────────┐
-│                         Profile (Workflow Configuration)                   │
-├────────────────────────────────────────────────────────────────────────────┤
+┌───────────────────────────────────────────────────────────────────────────┐
+│                         Profile (Workflow Configuration)                  │
+├───────────────────────────────────────────────────────────────────────────┤
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐   │
 │  │  SpecConfig  │  │  Synthesis   │  │  Templates   │  │   Rubrics    │   │
 │  │  (required/  │  │  (DAG of     │  │  (document   │  │  (evaluation │   │
 │  │   optional)  │  │   sources)   │  │   structure) │  │   criteria)  │   │
 │  └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘   │
-└────────────────────────────────────────────────────────────────────────────┘
+└───────────────────────────────────────────────────────────────────────────┘
                                     │
                                     ▼
 ┌───────────────────────────────────────────────────────────────────────────┐
