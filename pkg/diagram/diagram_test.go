@@ -8,6 +8,8 @@ import (
 	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/synthesis"
 )
 
+var _ = synthesis.DAG{} // keep import for TestGenerateFromDAG
+
 func TestGenerateD2(t *testing.T) {
 	p := &profile.Profile{
 		Name: "aws-product",
@@ -17,7 +19,7 @@ func TestGenerateD2(t *testing.T) {
 			"faq":   {Required: true, Category: "gtm"},
 			"prd":   {Required: true, Category: "source"},
 		},
-		Synthesis: map[string]*synthesis.Rule{
+		Synthesis: map[string]*profile.SynthesisRule{
 			"press": {Sources: []string{"mrd"}},
 			"faq":   {Sources: []string{"mrd", "press"}},
 			"prd":   {Sources: []string{"mrd", "press", "faq"}},
@@ -52,7 +54,7 @@ func TestGenerateMermaid(t *testing.T) {
 			"press": {Required: true, Category: "gtm"},
 			"faq":   {Required: true, Category: "gtm"},
 		},
-		Synthesis: map[string]*synthesis.Rule{
+		Synthesis: map[string]*profile.SynthesisRule{
 			"press": {Sources: []string{"mrd"}},
 			"faq":   {Sources: []string{"mrd", "press"}},
 		},

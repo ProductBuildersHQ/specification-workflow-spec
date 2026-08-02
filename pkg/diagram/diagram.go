@@ -199,23 +199,23 @@ func collectSpecs(p *profile.Profile, includeOptional bool) []SpecInfo {
 // formatLabel converts a spec ID to a display label.
 func formatLabel(id string) string {
 	labels := map[string]string{
-		"mrd":             "MRD\\n(Market Requirements)",
-		"prd":             "PRD\\n(Product Requirements)",
-		"uxd":             "UXD\\n(User Experience)",
+		"mrd":              "MRD\\n(Market Requirements)",
+		"prd":              "PRD\\n(Product Requirements)",
+		"uxd":              "UXD\\n(User Experience)",
 		"opportunity-spec": "OpportunitySpec\\n(12-Box Canvas)",
-		"press":           "Press Release\\n(Vision Document)",
-		"faq":             "FAQ\\n(Challenge Assumptions)",
-		"narrative-6p":    "6-Pager Narrative\\n(Executive Document)",
-		"narrative-1p":    "1-Pager\\n(Executive Summary)",
-		"trd":             "TRD\\n(Technical Design)",
-		"tpd":             "TPD\\n(Test Plan)",
-		"ird":             "IRD\\n(Infrastructure)",
-		"plan":            "PLAN\\n(Implementation)",
-		"roadmap":         "ROADMAP\\n(Tracking)",
-		"bmc":             "BMC\\n(Business Model)",
-		"hypothesis":      "Hypothesis\\n(Core Assumption)",
-		"shapeup-pitch":   "Pitch\\n(Shape Up)",
-		"ost":             "OST\\n(Opportunity Tree)",
+		"press":            "Press Release\\n(Vision Document)",
+		"faq":              "FAQ\\n(Challenge Assumptions)",
+		"narrative-6p":     "6-Pager Narrative\\n(Executive Document)",
+		"narrative-1p":     "1-Pager\\n(Executive Summary)",
+		"trd":              "TRD\\n(Technical Design)",
+		"tpd":              "TPD\\n(Test Plan)",
+		"ird":              "IRD\\n(Infrastructure)",
+		"plan":             "PLAN\\n(Implementation)",
+		"roadmap":          "ROADMAP\\n(Tracking)",
+		"bmc":              "BMC\\n(Business Model)",
+		"hypothesis":       "Hypothesis\\n(Core Assumption)",
+		"shapeup-pitch":    "Pitch\\n(Shape Up)",
+		"ost":              "OST\\n(Opportunity Tree)",
 	}
 
 	if label, ok := labels[id]; ok {
@@ -388,7 +388,7 @@ func generateD2FromDAG(dag *synthesis.DAG, title string) string {
 	return b.String()
 }
 
-func generateMermaidFromDAG(dag *synthesis.DAG, title string) string {
+func generateMermaidFromDAG(dag *synthesis.DAG, _ string) string {
 	var b strings.Builder
 
 	b.WriteString("flowchart TB\n")

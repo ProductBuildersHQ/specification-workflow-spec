@@ -174,7 +174,7 @@
         },
         "synthesis": {
           "additionalProperties": {
-            "$ref": "#/$defs/Rule"
+            "$ref": "#/$defs/SynthesisRule"
           },
           "type": "object",
           "description": "Synthesis rules by target spec type"
@@ -191,8 +191,7 @@
       "additionalProperties": false,
       "type": "object",
       "required": [
-        "name",
-        "spec_config"
+        "name"
       ]
     },
     "ReviewGate": {
@@ -215,38 +214,6 @@
       "required": [
         "after",
         "action"
-      ]
-    },
-    "Rule": {
-      "properties": {
-        "sources": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array",
-          "description": "Source spec type IDs"
-        },
-        "guidance": {
-          "type": "string",
-          "description": "LLM prompt guidance for synthesis"
-        },
-        "prompt_context": {
-          "type": "string",
-          "description": "Additional synthesis prompt context"
-        },
-        "required": {
-          "type": "boolean",
-          "description": "Whether all sources are required"
-        },
-        "priority": {
-          "type": "integer",
-          "description": "Synthesis priority (higher = earlier)"
-        }
-      },
-      "additionalProperties": false,
-      "type": "object",
-      "required": [
-        "sources"
       ]
     },
     "SpecRequirement": {
@@ -283,6 +250,38 @@
       "type": "object",
       "required": [
         "required"
+      ]
+    },
+    "SynthesisRule": {
+      "properties": {
+        "sources": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "description": "Source spec type IDs"
+        },
+        "guidance": {
+          "type": "string",
+          "description": "LLM prompt guidance for synthesis"
+        },
+        "prompt_context": {
+          "type": "string",
+          "description": "Additional synthesis prompt context"
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Whether all sources are required"
+        },
+        "priority": {
+          "type": "integer",
+          "description": "Synthesis priority (higher = earlier)"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "sources"
       ]
     },
     "Workflow": {
