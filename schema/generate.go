@@ -14,6 +14,7 @@ import (
 	"github.com/invopop/jsonschema"
 
 	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/gate"
+	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/layout"
 	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/profile"
 	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/rubricdef"
 	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/spectype"
@@ -32,6 +33,7 @@ func main() {
 		{"rubricdef", rubricdef.RubricDefinition{}},
 		{"synthesis", synthesis.DAG{}},
 		{"gate", gate.Gate{}},
+		{"layout", layout.Layout{}},
 	}
 
 	dir := "."
@@ -81,6 +83,7 @@ func toTitle(name string) string {
 		"rubricdef": "Rubric Definition",
 		"synthesis": "Synthesis DAG",
 		"gate":      "Phase Gate",
+		"layout":    "Project Layout",
 	}
 	if t, ok := titles[name]; ok {
 		return t
