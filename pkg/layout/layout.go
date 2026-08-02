@@ -26,6 +26,7 @@
 package layout
 
 import (
+	"path"
 	"path/filepath"
 	"strings"
 )
@@ -129,22 +130,24 @@ func (l *Layout) EvalFilename(specType string) string {
 }
 
 // SpecPath returns the full path for a spec, relative to the project root.
+// Always uses forward slashes for cross-platform consistency.
 func (l *Layout) SpecPath(specType, category string) string {
 	dir := l.DirForCategory(category)
 	filename := l.SpecFilename(specType)
 	if dir == "" {
 		return filename
 	}
-	return filepath.Join(dir, filename)
+	return path.Join(dir, filename)
 }
 
 // EvalPath returns the full path for an evaluation result, relative to project root.
+// Always uses forward slashes for cross-platform consistency.
 func (l *Layout) EvalPath(specType string) string {
 	evalDir := "evals"
 	if l != nil && l.EvalDir != "" {
 		evalDir = l.EvalDir
 	}
-	return filepath.Join(evalDir, l.EvalFilename(specType))
+	return path.Join(evalDir, l.EvalFilename(specType))
 }
 
 // SpecPathAbs returns the absolute path for a spec.
