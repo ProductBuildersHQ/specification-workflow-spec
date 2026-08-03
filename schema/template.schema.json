@@ -146,14 +146,17 @@
         "metadata": {
           "$ref": "#/$defs/TemplateMetadata",
           "description": "Template metadata"
+        },
+        "content": {
+          "type": "string",
+          "description": "Raw markdown template content with placeholders"
         }
       },
       "additionalProperties": false,
       "type": "object",
       "required": [
         "id",
-        "specType",
-        "sections"
+        "specType"
       ]
     },
     "TemplateMetadata": {

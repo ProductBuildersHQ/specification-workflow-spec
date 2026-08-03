@@ -19,13 +19,17 @@ type Template struct {
 	Description string `json:"description,omitempty" jsonschema:"description=Template purpose"`
 
 	// Sections define the document structure.
-	Sections []Section `json:"sections" jsonschema:"required,description=Template sections"`
+	Sections []Section `json:"sections,omitempty" jsonschema:"description=Template sections"`
 
 	// Frontmatter defines YAML frontmatter schema.
 	Frontmatter *Frontmatter `json:"frontmatter,omitempty" jsonschema:"description=YAML frontmatter schema"`
 
 	// Metadata about the template.
 	Metadata *TemplateMetadata `json:"metadata,omitempty" jsonschema:"description=Template metadata"`
+
+	// Content is the raw markdown template with placeholders.
+	// Populated when loading templates via embed for filesystem-free access.
+	Content string `json:"content,omitempty" jsonschema:"description=Raw markdown template content with placeholders"`
 }
 
 // Section defines a section within a template.
