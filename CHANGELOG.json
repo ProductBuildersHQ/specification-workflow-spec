@@ -7,6 +7,29 @@
   "maintainers": ["ProductBuildersHQ"],
   "releases": [
     {
+      "version": "v0.2.0",
+      "date": "2026-08-02",
+      "highlights": [
+        { "description": "Canonical home for workflow definitions: all 24 default workflows (stage-based, methodology-based, big-tech syntheses, v2mom, pbhq-lite) are embedded and loadable as Go structs with no filesystem access" },
+        { "description": "Breaking: pkg/profile renamed to pkg/workflow (Profile -> Workflow, inner Workflow field -> Execution); pkg/rubricdef removed in favor of structured-evaluation's rubric.RubricSet" }
+      ],
+      "added": [
+        { "description": "Add embedded workflow registry and composable loaders (embedded, file, fs.FS, chain, resolving with extends inheritance and cycle detection)", "commit": "47aba7b" },
+        { "description": "Add default workflow definition library with 24 methodologies imported from visionspec", "commit": "99d1b6b" },
+        { "description": "Add Content field to Template for filesystem-free template loading", "commit": "d0c3f40" },
+        { "description": "Parse methodology YAML shorthand and grouped artifacts; add Artifact type and Methodology.Source", "commit": "73b0b14" }
+      ],
+      "changed": [
+        { "description": "Breaking: rename profile package to workflow; Profile is now Workflow and its phase ordering field is Execution", "commit": "7207bd9" }
+      ],
+      "removed": [
+        { "description": "Breaking: drop pkg/rubricdef and rubricdef.schema.json; rubric definitions use structured-evaluation's rubric.RubricSet directly", "commit": "04119e4" }
+      ],
+      "documentation": [
+        { "description": "Document workflow packages, embedded library, and loader composition in README", "commit": "01115ed" }
+      ]
+    },
+    {
       "version": "v0.1.0",
       "date": "2026-08-02",
       "highlights": [
