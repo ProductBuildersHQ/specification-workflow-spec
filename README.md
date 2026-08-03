@@ -32,9 +32,9 @@ A formal specification for defining product specification workflows.
 `specification-workflow-spec` provides standardized types for defining:
 
 - **Spec Types** - Registry of specification document types (PRD, MRD, Press Release, FAQ, 6-Pager, etc.)
-- **Profiles** - Workflow configurations bundling spec requirements, synthesis rules, and evaluation criteria
-- **Templates** - Document structure definitions with required/optional sections
-- **Rubric Definitions** - LLM-as-Judge evaluation criteria (distinct from evaluation reports)
+- **Workflows** - Methodology configurations bundling spec requirements, synthesis rules, and evaluation criteria
+- **Templates** - Document structure definitions with required/optional sections and embedded content
+- **Rubrics** - LLM-as-Judge evaluation criteria using structured-evaluation's `rubric.RubricSet`
 - **Synthesis Rules** - Dependency graphs for generating specs from other specs
 - **Phase Gates** - Approval checkpoints and workflow control
 
@@ -42,7 +42,7 @@ A formal specification for defining product specification workflows.
 
 ```
 ┌───────────────────────────────────────────────────────────────────────────┐
-│                         Profile (Workflow Configuration)                  │
+│                       Workflow (Methodology Configuration)                │
 ├───────────────────────────────────────────────────────────────────────────┤
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐   │
 │  │  SpecConfig  │  │  Synthesis   │  │  Templates   │  │   Rubrics    │   │
@@ -53,7 +53,7 @@ A formal specification for defining product specification workflows.
                                     │
                                     ▼
 ┌───────────────────────────────────────────────────────────────────────────┐
-│                           Workflow Execution                              │
+│                                Execution                                  │
 ├───────────────────────────────────────────────────────────────────────────┤
 │  Phase 1: Discovery  →  Gate  →  Phase 2: Vision  →  Gate  →  Phase 3...  │
 │  (MRD)                          (Press, FAQ)                  (PRD, UXD)  │
