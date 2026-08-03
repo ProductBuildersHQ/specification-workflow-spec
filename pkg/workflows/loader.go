@@ -11,6 +11,7 @@ import (
 
 	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/template"
 	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/workflow"
+	oscompatfs "github.com/grokify/oscompat/fs"
 	"github.com/plexusone/structured-evaluation/rubric"
 	"gopkg.in/yaml.v3"
 )
@@ -107,7 +108,7 @@ func (l *FileLoader) loadTemplates(loaded *LoadedWorkflow, dir string) error {
 		loaded.Templates[specType] = &template.Template{
 			ID:       specType,
 			SpecType: specType,
-			Content:  string(content),
+			Content:  oscompatfs.NormalizeLineEndings(string(content)),
 		}
 	}
 
@@ -228,7 +229,7 @@ func (l *FSLoader) loadTemplates(loaded *LoadedWorkflow, dir string) error {
 		loaded.Templates[specType] = &template.Template{
 			ID:       specType,
 			SpecType: specType,
-			Content:  string(content),
+			Content:  oscompatfs.NormalizeLineEndings(string(content)),
 		}
 	}
 

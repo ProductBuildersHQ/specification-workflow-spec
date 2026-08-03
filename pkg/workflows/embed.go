@@ -9,6 +9,7 @@ import (
 
 	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/template"
 	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/workflow"
+	oscompatfs "github.com/grokify/oscompat/fs"
 	"github.com/plexusone/structured-evaluation/rubric"
 	"gopkg.in/yaml.v3"
 )
@@ -114,11 +115,11 @@ func loadTemplates(loaded *LoadedWorkflow, dir string) error {
 			return fmt.Errorf("reading template %s: %w", name, err)
 		}
 
-		// Create template with content
+		// Normalize CRLF so embedded content is identical across OS checkouts.
 		tmpl := &template.Template{
 			ID:       specType,
 			SpecType: specType,
-			Content:  string(content),
+			Content:  oscompatfs.NormalizeLineEndings(string(content)),
 		}
 
 		loaded.Templates[specType] = tmpl

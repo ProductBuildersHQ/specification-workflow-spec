@@ -199,6 +199,13 @@ spec_config:
 		t.Fatalf("Failed to write template: %v", err)
 	}
 
+	// Write a template with Windows line endings (as produced by
+	// core.autocrlf=true checkouts) to verify normalization.
+	crlfContent := "# TRD Template\r\n\r\nCRLF line endings."
+	if err := os.WriteFile(filepath.Join(templatesDir, "trd.md"), []byte(crlfContent), 0600); err != nil {
+		t.Fatalf("Failed to write CRLF template: %v", err)
+	}
+
 	// Write rubric
 	rubricYAML := `id: prd-rubric
 name: PRD Rubric
@@ -235,6 +242,20 @@ categories:
 		}
 		if tmpl.Content != templateContent {
 			t.Errorf("Template content mismatch")
+		}
+	})
+
+	t.Run("normalizes CRLF template content", func(t *testing.T) {
+		w, err := loader.Load("test-workflow")
+		if err != nil {
+			t.Fatalf("Load error: %v", err)
+		}
+		tmpl, ok := w.Templates["trd"]
+		if !ok {
+			t.Fatal("Template 'trd' not found")
+		}
+		if want := "# TRD Template\n\nCRLF line endings."; tmpl.Content != want {
+			t.Errorf("Content = %q, want %q", tmpl.Content, want)
 		}
 	})
 
