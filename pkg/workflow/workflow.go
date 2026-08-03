@@ -64,6 +64,9 @@ type Methodology struct {
 	// Creator is the person/company who created the methodology.
 	Creator string `json:"creator,omitempty" yaml:"creator,omitempty" jsonschema:"description=Methodology creator"`
 
+	// Source is the origin company or publication of the methodology.
+	Source string `json:"source,omitempty" yaml:"source,omitempty" jsonschema:"description=Origin company or publication"`
+
 	// Reference is a URL to the canonical methodology documentation.
 	Reference string `json:"reference,omitempty" yaml:"reference,omitempty" jsonschema:"format=uri,description=URL to methodology documentation"`
 
@@ -71,7 +74,24 @@ type Methodology struct {
 	Principles []Principle `json:"principles,omitempty" yaml:"principles,omitempty" jsonschema:"description=Core methodology principles"`
 
 	// Artifacts are the key artifacts produced by the methodology.
-	Artifacts []string `json:"artifacts,omitempty" yaml:"artifacts,omitempty" jsonschema:"description=Key artifacts"`
+	Artifacts Artifacts `json:"artifacts,omitempty" yaml:"artifacts,omitempty" jsonschema:"description=Key artifacts"`
+}
+
+// Artifacts is a list of methodology artifacts.
+// In YAML it accepts either a flat sequence or a mapping of category name
+// to sequence (e.g., primary/supporting groups).
+type Artifacts []Artifact
+
+// Artifact is a named artifact produced by a methodology.
+type Artifact struct {
+	// ID is the artifact identifier (e.g., "press_release").
+	ID string `json:"id" yaml:"id" jsonschema:"required,description=Artifact identifier"`
+
+	// Description explains the artifact.
+	Description string `json:"description,omitempty" yaml:"description,omitempty" jsonschema:"description=Artifact explanation"`
+
+	// Category optionally groups artifacts (e.g., "primary", "supporting").
+	Category string `json:"category,omitempty" yaml:"category,omitempty" jsonschema:"description=Artifact grouping"`
 }
 
 // Principle is a named principle with description.

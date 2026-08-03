@@ -3,6 +3,33 @@
   "$id": "https://github.com/ProductBuildersHQ/specification-workflow-spec/schema/workflow.schema.json",
   "$ref": "#/$defs/Workflow",
   "$defs": {
+    "Artifact": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Artifact identifier"
+        },
+        "description": {
+          "type": "string",
+          "description": "Artifact explanation"
+        },
+        "category": {
+          "type": "string",
+          "description": "Artifact grouping"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "id"
+      ]
+    },
+    "Artifacts": {
+      "items": {
+        "$ref": "#/$defs/Artifact"
+      },
+      "type": "array"
+    },
     "EvaluationConfig": {
       "properties": {
         "pass_threshold": {
@@ -92,6 +119,10 @@
           "type": "string",
           "description": "Methodology creator"
         },
+        "source": {
+          "type": "string",
+          "description": "Origin company or publication"
+        },
         "reference": {
           "type": "string",
           "format": "uri",
@@ -105,10 +136,7 @@
           "description": "Core methodology principles"
         },
         "artifacts": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array",
+          "$ref": "#/$defs/Artifacts",
           "description": "Key artifacts"
         }
       },

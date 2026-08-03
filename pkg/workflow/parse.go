@@ -72,6 +72,7 @@ func (w *Workflow) Clone() *Workflow {
 			Name:        w.Methodology.Name,
 			Description: w.Methodology.Description,
 			Creator:     w.Methodology.Creator,
+			Source:      w.Methodology.Source,
 			Reference:   w.Methodology.Reference,
 		}
 		if w.Methodology.Principles != nil {
@@ -79,7 +80,7 @@ func (w *Workflow) Clone() *Workflow {
 			copy(clone.Methodology.Principles, w.Methodology.Principles)
 		}
 		if w.Methodology.Artifacts != nil {
-			clone.Methodology.Artifacts = make([]string, len(w.Methodology.Artifacts))
+			clone.Methodology.Artifacts = make(Artifacts, len(w.Methodology.Artifacts))
 			copy(clone.Methodology.Artifacts, w.Methodology.Artifacts)
 		}
 	}
