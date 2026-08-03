@@ -71,13 +71,16 @@ go get github.com/ProductBuildersHQ/specification-workflow-spec
 | Package | Description |
 |---------|-------------|
 | `pkg/spectype` | Spec type registry and category definitions |
-| `pkg/profile` | Workflow profile configuration |
+| `pkg/workflow` | Workflow configuration (spec requirements, synthesis, execution, evaluation) |
+| `pkg/workflows` | Embedded default workflows with loaders (embedded, file, chain, resolving) |
 | `pkg/template` | Spec template structure definitions |
-| `pkg/rubricdef` | Rubric definition for LLM-as-Judge evaluation |
 | `pkg/synthesis` | Synthesis rule DAG for spec generation |
 | `pkg/gate` | Phase gates and approval checkpoints |
-| `pkg/diagram` | D2 and Mermaid diagram generation from profiles |
+| `pkg/layout` | Filesystem layout conventions for spec projects |
+| `pkg/diagram` | D2 and Mermaid diagram generation from workflows |
 | `schema` | Generated JSON Schema files |
+
+Rubric definitions use [structured-evaluation](https://github.com/plexusone/structured-evaluation)'s canonical `rubric.RubricSet` type.
 
 ## Spec Types
 
@@ -123,33 +126,40 @@ The registry defines canonical spec types across methodologies:
 
 See `pkg/spectype/spectype.go` for the full registry.
 
-## Profiles
+## Workflows
 
-Profiles bundle workflow configurations for specific methodologies:
+Workflows bundle spec requirements, synthesis rules, templates, and rubrics for
+specific methodologies. Default workflows (aws-product, big-tech-feature,
+lean-startup, etc.) are embedded and load with no filesystem access:
 
 ```go
-import "github.com/ProductBuildersHQ/specification-workflow-spec/pkg/profile"
+import "github.com/ProductBuildersHQ/specification-workflow-spec/pkg/workflows"
 
-p := profile.Profile{
-    Name:        "aws-product",
-    Description: "Amazon Working Backwards for new products",
-    SpecConfig: map[string]*profile.SpecRequirement{
-        "mrd":   {Required: true},
-        "press": {Required: true},
-        "faq":   {Required: true},
-        "prd":   {Required: true},
-    },
-    Synthesis: map[string]*synthesis.Rule{
-        "press": {Sources: []string{"mrd"}},
-        "faq":   {Sources: []string{"mrd", "press"}},
-        "prd":   {Sources: []string{"mrd", "press", "faq"}},
-    },
+// Load with inheritance resolution (aws-feature extends enterprise)
+w, err := workflows.DefaultLoader().Load("aws-feature")
+if err != nil {
+    // handle error
 }
+
+w.Workflow.Name              // "aws-feature"
+w.Workflow.RequiredSpecs()   // required spec type IDs
+w.Templates["press"].Content // raw markdown template
+w.Rubrics["press"].Categories // structured-evaluation rubric categories
+```
+
+Loaders compose for customization:
+
+```go
+// Organization overrides from a directory, falling back to embedded defaults
+loader := workflows.NewResolvingLoader(workflows.NewChainLoader(
+    workflows.NewFileLoader("./custom-workflows"),
+    workflows.DefaultLoader(),
+))
 ```
 
 ## Diagram Generation
 
-Generate D2 or Mermaid diagrams from profiles:
+Generate D2 or Mermaid diagrams from workflows:
 
 ```go
 import "github.com/ProductBuildersHQ/specification-workflow-spec/pkg/diagram"
@@ -157,10 +167,10 @@ import "github.com/ProductBuildersHQ/specification-workflow-spec/pkg/diagram"
 // Generate D2 diagram
 opts := diagram.DefaultOptions()
 opts.Title = "AWS Product Flow"
-d2, _ := diagram.Generate(profile, diagram.FormatD2, opts)
+d2, _ := diagram.Generate(w.Workflow, diagram.FormatD2, opts)
 
 // Generate Mermaid diagram
-mermaid, _ := diagram.Generate(profile, diagram.FormatMermaid, opts)
+mermaid, _ := diagram.Generate(w.Workflow, diagram.FormatMermaid, opts)
 ```
 
 Output formats:
@@ -179,11 +189,11 @@ go generate ./schema/...
 This produces:
 
 - `schema/spectype.schema.json`
-- `schema/profile.schema.json`
+- `schema/workflow.schema.json`
 - `schema/template.schema.json`
-- `schema/rubricdef.schema.json`
 - `schema/synthesis.schema.json`
 - `schema/gate.schema.json`
+- `schema/layout.schema.json`
 
 ## Related Projects
 
