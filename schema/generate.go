@@ -15,11 +15,10 @@ import (
 
 	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/gate"
 	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/layout"
-	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/profile"
-	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/rubricdef"
 	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/spectype"
 	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/synthesis"
 	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/template"
+	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/workflow"
 )
 
 func main() {
@@ -28,9 +27,8 @@ func main() {
 		typ  any
 	}{
 		{"spectype", spectype.SpecTypeRegistry{}},
-		{"profile", profile.Profile{}},
+		{"workflow", workflow.Workflow{}},
 		{"template", template.Template{}},
-		{"rubricdef", rubricdef.RubricDefinition{}},
 		{"synthesis", synthesis.DAG{}},
 		{"gate", gate.Gate{}},
 		{"layout", layout.Layout{}},
@@ -78,9 +76,8 @@ func generateSchema(dir, name string, v any) error {
 func toTitle(name string) string {
 	titles := map[string]string{
 		"spectype":  "Specification Type Registry",
-		"profile":   "Workflow Profile",
+		"workflow":  "Specification Workflow",
 		"template":  "Spec Template",
-		"rubricdef": "Rubric Definition",
 		"synthesis": "Synthesis DAG",
 		"gate":      "Phase Gate",
 		"layout":    "Project Layout",

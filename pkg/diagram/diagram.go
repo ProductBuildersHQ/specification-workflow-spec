@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/profile"
 	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/synthesis"
+	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/workflow"
 )
 
 // Format specifies the output diagram format.
@@ -48,7 +48,7 @@ func DefaultOptions() Options {
 }
 
 // Generate creates a diagram from a profile in the specified format.
-func Generate(p *profile.Profile, format Format, opts Options) (string, error) {
+func Generate(p *workflow.Workflow, format Format, opts Options) (string, error) {
 	if opts.Title == "" {
 		opts.Title = p.Name + " Workflow"
 	}
@@ -64,7 +64,7 @@ func Generate(p *profile.Profile, format Format, opts Options) (string, error) {
 }
 
 // generateD2 creates a D2 diagram from the profile.
-func generateD2(p *profile.Profile, opts Options) string {
+func generateD2(p *workflow.Workflow, opts Options) string {
 	var b strings.Builder
 
 	// Header
@@ -112,7 +112,7 @@ func generateD2(p *profile.Profile, opts Options) string {
 }
 
 // generateMermaid creates a Mermaid diagram from the profile.
-func generateMermaid(p *profile.Profile, opts Options) string {
+func generateMermaid(p *workflow.Workflow, opts Options) string {
 	var b strings.Builder
 
 	// Header
@@ -159,7 +159,7 @@ type SpecInfo struct {
 }
 
 // collectSpecs gathers spec information from the profile.
-func collectSpecs(p *profile.Profile, includeOptional bool) []SpecInfo {
+func collectSpecs(p *workflow.Workflow, includeOptional bool) []SpecInfo {
 	var specs []SpecInfo
 
 	if p.SpecConfig == nil {

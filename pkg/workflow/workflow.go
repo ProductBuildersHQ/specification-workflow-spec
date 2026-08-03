@@ -1,23 +1,23 @@
-// Package profile defines specification workflow profiles.
+// Package workflow defines specification workflow configurations.
 //
-// A Profile bundles spec requirements, synthesis rules, and evaluation
+// A Workflow bundles spec requirements, synthesis rules, and evaluation
 // criteria into a cohesive workflow configuration (e.g., "aws-product",
 // "big-tech-feature", "pbhq-lite").
-package profile
+package workflow
 
-// Profile represents a complete specification workflow configuration.
-type Profile struct {
-	// Name is the profile identifier (e.g., "aws-product", "pbhq-lite").
-	Name string `json:"name" yaml:"name" jsonschema:"required,description=Profile identifier"`
+// Workflow represents a complete specification workflow configuration.
+type Workflow struct {
+	// Name is the workflow identifier (e.g., "aws-product", "pbhq-lite").
+	Name string `json:"name" yaml:"name" jsonschema:"required,description=Workflow identifier"`
 
-	// Description explains the profile's purpose and use case.
-	Description string `json:"description,omitempty" yaml:"description,omitempty" jsonschema:"description=Profile purpose and target audience"`
+	// Description explains the workflow's purpose and use case.
+	Description string `json:"description,omitempty" yaml:"description,omitempty" jsonschema:"description=Workflow purpose and target audience"`
 
-	// Extends is the name of a parent profile to inherit from.
-	Extends string `json:"extends,omitempty" yaml:"extends,omitempty" jsonschema:"description=Parent profile to inherit settings from"`
+	// Extends is the name of a parent workflow to inherit from.
+	Extends string `json:"extends,omitempty" yaml:"extends,omitempty" jsonschema:"description=Parent workflow to inherit settings from"`
 
-	// Abstract indicates this profile is a base for other profiles (not directly usable).
-	Abstract bool `json:"abstract,omitempty" yaml:"abstract,omitempty" jsonschema:"description=True if this profile cannot be used directly"`
+	// Abstract indicates this workflow is a base for other workflows (not directly usable).
+	Abstract bool `json:"abstract,omitempty" yaml:"abstract,omitempty" jsonschema:"description=True if this workflow cannot be used directly"`
 
 	// Methodology documents the underlying product methodology.
 	Methodology *Methodology `json:"methodology,omitempty" yaml:"methodology,omitempty" jsonschema:"description=Underlying product methodology documentation"`
@@ -28,8 +28,8 @@ type Profile struct {
 	// Synthesis defines how specs are generated from other specs.
 	Synthesis map[string]*SynthesisRule `json:"synthesis,omitempty" yaml:"synthesis,omitempty" jsonschema:"description=Synthesis rules by target spec type"`
 
-	// Workflow defines the ordered phases and gates.
-	Workflow *Workflow `json:"workflow,omitempty" yaml:"workflow,omitempty" jsonschema:"description=Phase ordering and gates"`
+	// Execution defines the ordered phases and gates.
+	Execution *Execution `json:"execution,omitempty" yaml:"execution,omitempty" jsonschema:"description=Phase ordering and gates"`
 
 	// Evaluation defines pass/fail thresholds.
 	Evaluation *EvaluationConfig `json:"evaluation,omitempty" yaml:"evaluation,omitempty" jsonschema:"description=Evaluation thresholds"`
@@ -97,8 +97,8 @@ type SpecRequirement struct {
 	// Category overrides the default category for this spec type.
 	Category string `json:"category,omitempty" yaml:"category,omitempty" jsonschema:"enum=source,enum=gtm,enum=technical,enum=execution,enum=output,enum=strategic"`
 
-	// Description provides profile-specific context for this spec.
-	Description string `json:"description,omitempty" yaml:"description,omitempty" jsonschema:"description=Profile-specific description"`
+	// Description provides workflow-specific context for this spec.
+	Description string `json:"description,omitempty" yaml:"description,omitempty" jsonschema:"description=Workflow-specific description"`
 
 	// Template specifies a custom template path.
 	Template string `json:"template,omitempty" yaml:"template,omitempty" jsonschema:"description=Custom template path"`
@@ -107,8 +107,8 @@ type SpecRequirement struct {
 	Rubric string `json:"rubric,omitempty" yaml:"rubric,omitempty" jsonschema:"description=Custom rubric path"`
 }
 
-// Workflow defines the ordered execution of specs.
-type Workflow struct {
+// Execution defines the ordered execution of specs.
+type Execution struct {
 	// Sequence is the ordered list of spec types to produce.
 	Sequence []string `json:"sequence,omitempty" yaml:"sequence,omitempty" jsonschema:"description=Ordered spec type IDs"`
 

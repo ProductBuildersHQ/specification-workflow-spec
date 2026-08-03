@@ -13,9 +13,9 @@ var FS embed.FS
 // SchemaFiles lists the available schema files.
 var SchemaFiles = []string{
 	"spectype.schema.json",
-	"profile.schema.json",
+	"workflow.schema.json",
 	"template.schema.json",
-	"rubricdef.schema.json",
 	"synthesis.schema.json",
 	"gate.schema.json",
+	"layout.schema.json",
 }

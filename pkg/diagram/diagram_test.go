@@ -4,22 +4,22 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/profile"
 	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/synthesis"
+	"github.com/ProductBuildersHQ/specification-workflow-spec/pkg/workflow"
 )
 
 var _ = synthesis.DAG{} // keep import for TestGenerateFromDAG
 
 func TestGenerateD2(t *testing.T) {
-	p := &profile.Profile{
+	w := &workflow.Workflow{
 		Name: "aws-product",
-		SpecConfig: map[string]*profile.SpecRequirement{
+		SpecConfig: map[string]*workflow.SpecRequirement{
 			"mrd":   {Required: true, Category: "source"},
 			"press": {Required: true, Category: "gtm"},
 			"faq":   {Required: true, Category: "gtm"},
 			"prd":   {Required: true, Category: "source"},
 		},
-		Synthesis: map[string]*profile.SynthesisRule{
+		Synthesis: map[string]*workflow.SynthesisRule{
 			"press": {Sources: []string{"mrd"}},
 			"faq":   {Sources: []string{"mrd", "press"}},
 			"prd":   {Sources: []string{"mrd", "press", "faq"}},
@@ -29,7 +29,7 @@ func TestGenerateD2(t *testing.T) {
 	opts := DefaultOptions()
 	opts.Title = "AWS Product Flow"
 
-	d2, err := Generate(p, FormatD2, opts)
+	d2, err := Generate(w, FormatD2, opts)
 	if err != nil {
 		t.Fatalf("Generate failed: %v", err)
 	}
@@ -47,21 +47,21 @@ func TestGenerateD2(t *testing.T) {
 }
 
 func TestGenerateMermaid(t *testing.T) {
-	p := &profile.Profile{
+	w := &workflow.Workflow{
 		Name: "aws-product",
-		SpecConfig: map[string]*profile.SpecRequirement{
+		SpecConfig: map[string]*workflow.SpecRequirement{
 			"mrd":   {Required: true, Category: "source"},
 			"press": {Required: true, Category: "gtm"},
 			"faq":   {Required: true, Category: "gtm"},
 		},
-		Synthesis: map[string]*profile.SynthesisRule{
+		Synthesis: map[string]*workflow.SynthesisRule{
 			"press": {Sources: []string{"mrd"}},
 			"faq":   {Sources: []string{"mrd", "press"}},
 		},
 	}
 
 	opts := DefaultOptions()
-	mermaid, err := Generate(p, FormatMermaid, opts)
+	mermaid, err := Generate(w, FormatMermaid, opts)
 	if err != nil {
 		t.Fatalf("Generate failed: %v", err)
 	}

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/ProductBuildersHQ/specification-workflow-spec/schema/profile.schema.json",
-  "$ref": "#/$defs/Profile",
+  "$id": "https://github.com/ProductBuildersHQ/specification-workflow-spec/schema/workflow.schema.json",
+  "$ref": "#/$defs/Workflow",
   "$defs": {
     "EvaluationConfig": {
       "properties": {
@@ -20,6 +20,37 @@
         "max_findings_severity": {
           "$ref": "#/$defs/FindingSeverityLimits",
           "description": "Maximum findings allowed by severity"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "Execution": {
+      "properties": {
+        "sequence": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "description": "Ordered spec type IDs"
+        },
+        "phases": {
+          "items": {
+            "$ref": "#/$defs/Phase"
+          },
+          "type": "array",
+          "description": "Named workflow phases"
+        },
+        "iteration_trigger": {
+          "type": "string",
+          "description": "Spec type that triggers workflow iteration"
+        },
+        "review_gates": {
+          "items": {
+            "$ref": "#/$defs/ReviewGate"
+          },
+          "type": "array",
+          "description": "Approval checkpoints"
         }
       },
       "additionalProperties": false,
@@ -143,57 +174,6 @@
         "name"
       ]
     },
-    "Profile": {
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "Profile identifier"
-        },
-        "description": {
-          "type": "string",
-          "description": "Profile purpose and target audience"
-        },
-        "extends": {
-          "type": "string",
-          "description": "Parent profile to inherit settings from"
-        },
-        "abstract": {
-          "type": "boolean",
-          "description": "True if this profile cannot be used directly"
-        },
-        "methodology": {
-          "$ref": "#/$defs/Methodology",
-          "description": "Underlying product methodology documentation"
-        },
-        "spec_config": {
-          "additionalProperties": {
-            "$ref": "#/$defs/SpecRequirement"
-          },
-          "type": "object",
-          "description": "Spec requirements by spec type ID"
-        },
-        "synthesis": {
-          "additionalProperties": {
-            "$ref": "#/$defs/SynthesisRule"
-          },
-          "type": "object",
-          "description": "Synthesis rules by target spec type"
-        },
-        "workflow": {
-          "$ref": "#/$defs/Workflow",
-          "description": "Phase ordering and gates"
-        },
-        "evaluation": {
-          "$ref": "#/$defs/EvaluationConfig",
-          "description": "Evaluation thresholds"
-        }
-      },
-      "additionalProperties": false,
-      "type": "object",
-      "required": [
-        "name"
-      ]
-    },
     "ReviewGate": {
       "properties": {
         "after": {
@@ -235,7 +215,7 @@
         },
         "description": {
           "type": "string",
-          "description": "Profile-specific description"
+          "description": "Workflow-specific description"
         },
         "template": {
           "type": "string",
@@ -286,36 +266,56 @@
     },
     "Workflow": {
       "properties": {
-        "sequence": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array",
-          "description": "Ordered spec type IDs"
-        },
-        "phases": {
-          "items": {
-            "$ref": "#/$defs/Phase"
-          },
-          "type": "array",
-          "description": "Named workflow phases"
-        },
-        "iteration_trigger": {
+        "name": {
           "type": "string",
-          "description": "Spec type that triggers workflow iteration"
+          "description": "Workflow identifier"
         },
-        "review_gates": {
-          "items": {
-            "$ref": "#/$defs/ReviewGate"
+        "description": {
+          "type": "string",
+          "description": "Workflow purpose and target audience"
+        },
+        "extends": {
+          "type": "string",
+          "description": "Parent workflow to inherit settings from"
+        },
+        "abstract": {
+          "type": "boolean",
+          "description": "True if this workflow cannot be used directly"
+        },
+        "methodology": {
+          "$ref": "#/$defs/Methodology",
+          "description": "Underlying product methodology documentation"
+        },
+        "spec_config": {
+          "additionalProperties": {
+            "$ref": "#/$defs/SpecRequirement"
           },
-          "type": "array",
-          "description": "Approval checkpoints"
+          "type": "object",
+          "description": "Spec requirements by spec type ID"
+        },
+        "synthesis": {
+          "additionalProperties": {
+            "$ref": "#/$defs/SynthesisRule"
+          },
+          "type": "object",
+          "description": "Synthesis rules by target spec type"
+        },
+        "execution": {
+          "$ref": "#/$defs/Execution",
+          "description": "Phase ordering and gates"
+        },
+        "evaluation": {
+          "$ref": "#/$defs/EvaluationConfig",
+          "description": "Evaluation thresholds"
         }
       },
       "additionalProperties": false,
-      "type": "object"
+      "type": "object",
+      "required": [
+        "name"
+      ]
     }
   },
-  "title": "Workflow Profile",
-  "description": "Schema for profile definitions"
+  "title": "Specification Workflow",
+  "description": "Schema for workflow definitions"
 }
