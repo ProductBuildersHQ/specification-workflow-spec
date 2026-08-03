@@ -195,12 +195,18 @@ This produces:
 - `schema/gate.schema.json`
 - `schema/layout.schema.json`
 
-## Related Projects
+## Ecosystem
 
-| Project | Purpose |
-|---------|---------|
-| [visionspec](https://github.com/ProductBuildersHQ/visionspec) | CLI for spec workflow execution |
-| [structured-evaluation](https://github.com/plexusone/structured-evaluation) | LLM-as-Judge evaluation reports |
+This repository is the contract layer of the ProductBuildersHQ spec stack
+(`visionstudio → visionspec → specification-workflow-spec`): it defines
+workflow types, schemas, and the embedded default workflow library, and holds
+no execution logic. The layers above act on it.
+
+| Project | Role |
+|---------|------|
+| [visionspec](https://github.com/ProductBuildersHQ/visionspec) | The engine: CLI, MCP server, and importable SDK executing these workflows (scaffolding, LLM synthesis, LLM-as-Judge evaluation, lint/drift/status) |
+| [visionstudio](https://github.com/ProductBuildersHQ/visionstudio) | The studio: LLM-powered app loading workflow data from this library directly and executing via visionspec |
+| [structured-evaluation](https://github.com/plexusone/structured-evaluation) | Canonical rubric and evaluation-report types; rubrics here are its `rubric.RubricSet` |
 | [multi-agent-spec](https://github.com/plexusone/multi-agent-spec) | Multi-agent system definitions |
 
 ## License
