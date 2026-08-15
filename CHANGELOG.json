@@ -4,59 +4,212 @@
   "repository": "https://github.com/ProductBuildersHQ/specification-workflow-spec",
   "versioning": "semver",
   "commitConvention": "conventional",
-  "maintainers": ["ProductBuildersHQ"],
+  "maintainers": [
+    "ProductBuildersHQ"
+  ],
   "releases": [
+    {
+      "version": "v0.3.0",
+      "date": "2026-08-15",
+      "highlights": [
+        {
+          "description": "Loader-enforced per-spec template/rubric provenance: a SpecSource declares which workflow owns a spec's template/rubric (or \"local\"), and a declared source that doesn't actually provide the file is a load-time error"
+        },
+        {
+          "description": "Layered rubric schema (Class/Blocking/Evaluation, JudgeInstructions) extended onto structured-evaluation's RubricSet, wired through the library and regenerated JSON schemas"
+        },
+        {
+          "description": "Hardened aws-one-way-door and aws-two-way-door workflows: normative enterprise contract templates/rubrics, symmetric optional deepening (MRD or OpportunitySpec both feed PRD synthesis in both doors), and a loader cycle guard covering both extends and explicit spec sources"
+        },
+        {
+          "description": "prism-sync: a nested-module tool that copies roadmap-domain templates/rubrics from prism-roadmap with provenance headers and a -check drift mode, keeping prism-roadmap out of the library's module graph"
+        },
+        {
+          "description": "Catalog registries for pipelines, loops, and integrations, with a cross-reference test validating pipelines against workflows/integrations/spec-types and loops against everything"
+        }
+      ],
+      "added": [
+        {
+          "description": "Extend structured-evaluation's RubricSet with layered-evaluation fields; regenerate embedded JSON schemas from the Go types",
+          "commit": "0cc4ee4"
+        },
+        {
+          "description": "Provenance-aware loader: SpecSource provenance, strict library-wide resolution guarantee (every declared spec resolves, optional included), and a cycle guard threading the resolution chain through both extends links and explicit spec sources",
+          "commit": "7058a75"
+        },
+        {
+          "description": "tools/prism-sync: manifest-driven copy of roadmap-domain content with provenance headers stamped from debug.ReadBuildInfo(), -check drift mode for CI, own go.mod so prism-roadmap never enters the library module graph",
+          "commit": "149f32b"
+        },
+        {
+          "description": "Harden enterprise-tree templates/rubrics into normative contracts: TRD as the normative technical contract, PRD template aligned to its rubric, TPD as a verification contract, IRD as a tool-agnostic infrastructure contract, UXD as the experience contract",
+          "commit": "39469a6"
+        },
+        {
+          "description": "Add hardened aws-one-way-door and aws-two-way-door profiles (door-named, keyed on decision reversibility, replacing the product/feature-named profiles) with full local template/rubric sets and symmetric optional deepening",
+          "commit": "bde5d67"
+        },
+        {
+          "description": "Add continuous-discovery experience-map and opportunity-solution-tree (OST) content",
+          "commit": "fb42584"
+        },
+        {
+          "description": "Add v2mom family layered rubrics (vision, values, methods, obstacles, measures, alignment, summary)",
+          "commit": "e034cee"
+        },
+        {
+          "description": "Add embedded pipeline, loop, and integration registries with a cmd/catalog viewer and cross-reference validation",
+          "commit": "2c0e4ac"
+        }
+      ],
+      "changed": [
+        {
+          "description": "Bump plexusone/structured-evaluation dependency",
+          "commit": "d016954"
+        },
+        {
+          "description": "Extend the strict library-wide resolution guarantee to optional specs across all profiles (0-1, big-tech families, pbhq-lite, startup, quick-fix)",
+          "commit": "b00909c"
+        },
+        {
+          "description": "Stop tracking the compiled tools/prism-sync/prism-sync binary (build artifact, not source)",
+          "commit": "59feff2"
+        }
+      ],
+      "documentation": [
+        {
+          "description": "Describe ecosystem roles in related projects (README)",
+          "commit": "f62030f"
+        },
+        {
+          "description": "Add the INIT-SPECWORKFLOWSPEC-001 spec set (PRD/TRD/PLAN/ROADMAP) and README sections on inheritance/provenance, layered rubrics, and domain-content sync",
+          "commit": "f4cbe53"
+        }
+      ]
+    },
     {
       "version": "v0.2.0",
       "date": "2026-08-02",
       "highlights": [
-        { "description": "Canonical home for workflow definitions: all 24 default workflows (stage-based, methodology-based, big-tech syntheses, v2mom, pbhq-lite) are embedded and loadable as Go structs with no filesystem access" },
-        { "description": "Breaking: pkg/profile renamed to pkg/workflow (Profile -> Workflow, inner Workflow field -> Execution); pkg/rubricdef removed in favor of structured-evaluation's rubric.RubricSet" }
+        {
+          "description": "Canonical home for workflow definitions: all 24 default workflows (stage-based, methodology-based, big-tech syntheses, v2mom, pbhq-lite) are embedded and loadable as Go structs with no filesystem access"
+        },
+        {
+          "description": "Breaking: pkg/profile renamed to pkg/workflow (Profile -> Workflow, inner Workflow field -> Execution); pkg/rubricdef removed in favor of structured-evaluation's rubric.RubricSet"
+        }
       ],
       "added": [
-        { "description": "Add embedded workflow registry and composable loaders (embedded, file, fs.FS, chain, resolving with extends inheritance and cycle detection)", "commit": "47aba7b" },
-        { "description": "Add default workflow definition library with 24 methodologies imported from visionspec", "commit": "99d1b6b" },
-        { "description": "Add Content field to Template for filesystem-free template loading", "commit": "d0c3f40" },
-        { "description": "Parse methodology YAML shorthand and grouped artifacts; add Artifact type and Methodology.Source", "commit": "73b0b14" }
+        {
+          "description": "Add embedded workflow registry and composable loaders (embedded, file, fs.FS, chain, resolving with extends inheritance and cycle detection)",
+          "commit": "47aba7b"
+        },
+        {
+          "description": "Add default workflow definition library with 24 methodologies imported from visionspec",
+          "commit": "99d1b6b"
+        },
+        {
+          "description": "Add Content field to Template for filesystem-free template loading",
+          "commit": "d0c3f40"
+        },
+        {
+          "description": "Parse methodology YAML shorthand and grouped artifacts; add Artifact type and Methodology.Source",
+          "commit": "73b0b14"
+        }
       ],
       "changed": [
-        { "description": "Breaking: rename profile package to workflow; Profile is now Workflow and its phase ordering field is Execution", "commit": "7207bd9" }
+        {
+          "description": "Breaking: rename profile package to workflow; Profile is now Workflow and its phase ordering field is Execution",
+          "commit": "7207bd9"
+        }
       ],
       "removed": [
-        { "description": "Breaking: drop pkg/rubricdef and rubricdef.schema.json; rubric definitions use structured-evaluation's rubric.RubricSet directly", "commit": "04119e4" }
+        {
+          "description": "Breaking: drop pkg/rubricdef and rubricdef.schema.json; rubric definitions use structured-evaluation's rubric.RubricSet directly",
+          "commit": "04119e4"
+        }
       ],
       "documentation": [
-        { "description": "Document workflow packages, embedded library, and loader composition in README", "commit": "01115ed" }
+        {
+          "description": "Document workflow packages, embedded library, and loader composition in README",
+          "commit": "01115ed"
+        }
       ]
     },
     {
       "version": "v0.1.0",
       "date": "2026-08-02",
       "highlights": [
-        { "description": "Initial release of specification workflow spec library providing Go types and utilities for spec-driven product development workflows" }
+        {
+          "description": "Initial release of specification workflow spec library providing Go types and utilities for spec-driven product development workflows"
+        }
       ],
       "added": [
-        { "description": "Add spectype package with spec type registry (MRD, PRD, UXD, TRD, etc.)", "commit": "fb2b32e" },
-        { "description": "Add synthesis package for spec generation dependency rules", "commit": "9a4f363" },
-        { "description": "Add profile package for workflow configuration with YAML parsing", "commit": "db06261" },
-        { "description": "Add template, rubricdef, and gate packages for spec workflow primitives", "commit": "bb2f9ae" },
-        { "description": "Add JSON Schema generation and schema files", "commit": "658fa8e" },
-        { "description": "Add diagram package for D2 and Mermaid workflow visualization", "commit": "4330d5e" },
-        { "description": "Add profile YAML parsing and profile utilities", "commit": "2308d77" },
-        { "description": "Add layout package for filesystem layout conventions", "commit": "56f0e2b" }
+        {
+          "description": "Add spectype package with spec type registry (MRD, PRD, UXD, TRD, etc.)",
+          "commit": "fb2b32e"
+        },
+        {
+          "description": "Add synthesis package for spec generation dependency rules",
+          "commit": "9a4f363"
+        },
+        {
+          "description": "Add profile package for workflow configuration with YAML parsing",
+          "commit": "db06261"
+        },
+        {
+          "description": "Add template, rubricdef, and gate packages for spec workflow primitives",
+          "commit": "bb2f9ae"
+        },
+        {
+          "description": "Add JSON Schema generation and schema files",
+          "commit": "658fa8e"
+        },
+        {
+          "description": "Add diagram package for D2 and Mermaid workflow visualization",
+          "commit": "4330d5e"
+        },
+        {
+          "description": "Add profile YAML parsing and profile utilities",
+          "commit": "2308d77"
+        },
+        {
+          "description": "Add layout package for filesystem layout conventions",
+          "commit": "56f0e2b"
+        }
       ],
       "fixed": [
-        { "description": "Use forward slashes in layout paths for cross-platform consistency", "commit": "6b4b713" }
+        {
+          "description": "Use forward slashes in layout paths for cross-platform consistency",
+          "commit": "6b4b713"
+        }
       ],
       "documentation": [
-        { "description": "Add README with spec type tables and workflow diagram", "commit": "0ff927e" },
-        { "description": "Expand spec type tables and add diagram documentation", "commit": "4427d10" },
-        { "description": "Add shields and update workflow diagram in README", "commit": "2d306a6" }
+        {
+          "description": "Add README with spec type tables and workflow diagram",
+          "commit": "0ff927e"
+        },
+        {
+          "description": "Expand spec type tables and add diagram documentation",
+          "commit": "4427d10"
+        },
+        {
+          "description": "Add shields and update workflow diagram in README",
+          "commit": "2d306a6"
+        }
       ],
       "infrastructure": [
-        { "description": "Add project configuration", "commit": "cc7047c" },
-        { "description": "Update license owner", "commit": "f1b6986" },
-        { "description": "Update to shared CI workflows", "commit": "b8ce883" }
+        {
+          "description": "Add project configuration",
+          "commit": "cc7047c"
+        },
+        {
+          "description": "Update license owner",
+          "commit": "f1b6986"
+        },
+        {
+          "description": "Update to shared CI workflows",
+          "commit": "b8ce883"
+        }
       ]
     }
   ]

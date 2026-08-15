@@ -1,4 +1,17 @@
-# Specification Workflow Spec
+# Specification Workflow Spec (Archived)
+
+> **This repository is archived.** Its content — the workflow catalog,
+> loaders, templates, rubrics, and the tools it grew (pipelines, loops,
+> integrations, prism-sync) — has been merged into
+> [ProductBuildersHQ/visionspec](https://github.com/ProductBuildersHQ/visionspec),
+> which has been renamed to **specification-workflow-spec**, taking over
+> this repository's former name and Go import path. Full git history was
+> preserved in the merge. Depend on the new repository going forward; this
+> one is retained privately as a historical record. See
+> [docs/releases/v0.3.0.md](docs/releases/v0.3.0.md) for the final release
+> before archival.
+
+---
 
 [![Go CI][go-ci-svg]][go-ci-url]
 [![Go Lint][go-lint-svg]][go-lint-url]
